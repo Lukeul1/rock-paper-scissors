@@ -5,7 +5,7 @@ function getComputerChoice() {
     return options[Math.floor(Math.random() * options.length)];
 }
 
-const playerSelection = "Rock";
+const playerSelection = "rock";
 const computerSelection = getComputerChoice();
 
 function playRound(playerSelection, computerSelection) {
@@ -19,9 +19,9 @@ function playRound(playerSelection, computerSelection) {
     ) {
         return `You win! ${playerSelection} beats ${computerSelection}!`;
     } else if (computerChoice === playerChoice) {
-        return `Tie! ${computerSelection} and ${playerSelection} are equivalent!`;
+        return `A tie! ${computerSelection} and ${playerSelection} are equivalent!`;
     } else {
-        return `You lose! ${computerSelection} beats ${playerSelection}!`;
+        return `You lost! ${computerSelection} beats ${playerSelection}!`;
     }
 }
 
@@ -29,7 +29,7 @@ console.log(playRound(playerSelection, computerSelection));
 
 let outcomeTally = {
     win: 0,
-    loss: 0,
+    lost: 0,
     tie: 0,
 };
 
@@ -43,9 +43,9 @@ const numRounds = 5;
 
         if(outcome.includes('win')) {
             outcomeTally.win++;
-        } else if (outcome.includes('loss')) {
-            outcomeTally.loss++;
-        } else if (outcome.includes('Tie')) {
+        } else if (outcome.includes('lost')) {
+            outcomeTally.lost++;
+        } else if (outcome.includes('tie')) {
             outcomeTally.tie++;
         }
         
