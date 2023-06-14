@@ -1,55 +1,46 @@
+function playRound() {
+    function getComputerChoice() {
+        const options = ['rock', 'paper', 'scissor'];
+        const computerSelectionIndex = Math.floor(Math.random()*options.length);
+        return options[computerSelectionIndex];
+    }
 
+        const computerSelection = getComputerChoice();
+        const playerSelection = prompt("Enter choice:").toLowerCase();
 
-function getComputerChoice() {
-    const options = ['rock', 'paper', 'scissor'];
-    return options[Math.floor(Math.random() * options.length)];
-}
+        if (
+            (playerSelection === 'paper' && computerSelection === 'rock') ||
+            (playerSelection === 'scissor' && computerSelection === 'paper') ||
+            (playerSelection === 'rock' && computerSelection === 'scissor')
+        ) {
+            return `You win! ${playerSelection} beats ${computerSelection}`;
+        } else if (playerSelection === computerSelection) {
+            return `A tie ${playerSelection} and ${computerSelection} are the same`;
+        } else {
+            return `You lose! ${computerSelection} beats ${playerSelection}`;
+        }
+    } 
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
+const finalTally = {
+                    win: 0,
+                    lose: 0,
+                    tie: 0,
+};
 
-function playRound(playerSelection, computerSelection) {
-    const playerChoice = playerSelection.toLowerCase();
-    const computerChoice = computerSelection.toLowerCase();
+function game() {
 
-    if (
-        (playerChoice === 'rock' && computerChoice === 'scissor') ||
-        (playerChoice === 'paper' && computerChoice === 'rock') ||
-        (playerChoice === 'scissor' && computerChoice === 'paper')
-    ) {
-        return `You win! ${playerSelection} beats ${computerSelection}!`;
-    } else if (computerChoice === playerChoice) {
-        return `A tie! ${computerSelection} and ${playerSelection} are equivalent!`;
+    for(let i = 0; i < 5; i++) {
+    const result = playRound();
+    console.log(result);
+
+    if(result.includes('win')) {
+        finalTally.win++;
+    } else if (result.includes('lose')) {
+        finalTally.lose++;
     } else {
-        return `You lost! ${computerSelection} beats ${playerSelection}!`;
+        finalTally.tie++;
     }
 }
 
-console.log(playRound(playerSelection, computerSelection));
-
-let outcomeTally = {
-    win: 0,
-    lost: 0,
-    tie: 0,
-};
-
-const numRounds = 5;
-
-    for (let i = 0; i < numRounds; i++) {
-        const playerSelection = prompt('Enter your choice:').toLowerCase();
-        const computerSelection = getComputerChoice();
-
-        const outcome = playRound(playerSelection, computerSelection);
-
-        if(outcome.includes('win')) {
-            outcomeTally.win++;
-        } else if (outcome.includes('lost')) {
-            outcomeTally.lost++;
-        } else if (outcome.includes('tie')) {
-            outcomeTally.tie++;
-        }
-        
-    console.log(outcome);
+console.log("Final Tally", finalTally);
 }
-
-console.log(outcomeTally);
