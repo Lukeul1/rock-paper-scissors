@@ -1,46 +1,51 @@
-function playRound() {
+let playerScore = 0;
+let computerScore = 0;
+
+function playRound(playerSelection) {
     function getComputerChoice() {
-        const options = ['rock', 'paper', 'scissor'];
+        const options = ['Rock', 'Paper', 'Scissors'];
         const computerSelectionIndex = Math.floor(Math.random()*options.length);
         return options[computerSelectionIndex];
     }
 
         const computerSelection = getComputerChoice();
-        const playerSelection = prompt("Enter choice:").toLowerCase();
 
         if (
-            (playerSelection === 'paper' && computerSelection === 'rock') ||
-            (playerSelection === 'scissor' && computerSelection === 'paper') ||
-            (playerSelection === 'rock' && computerSelection === 'scissor')
+            (playerSelection === 'Paper' && computerSelection === 'Rock') ||
+            (playerSelection === 'Scissors' && computerSelection === 'Paper') ||
+            (playerSelection === 'Rock' && computerSelection === 'Scissors')
         ) {
+            playerScore++;
             return `You win! ${playerSelection} beats ${computerSelection}`;
         } else if (playerSelection === computerSelection) {
             return `A tie ${playerSelection} and ${computerSelection} are the same`;
         } else {
+            computerScore++;
             return `You lose! ${computerSelection} beats ${playerSelection}`;
         }
     } 
 
-const finalTally = {
-                    win: 0,
-                    lose: 0,
-                    tie: 0,
-};
+function handleButtonClick(event) {
+        const playerSelection = event.target.id;
+        const result = playRound(playerSelection);
+        console.log(result);
 
-function game() {
-
-    for(let i = 0; i < 5; i++) {
-    const result = playRound();
-    console.log(result);
-
-    if(result.includes('win')) {
-        finalTally.win++;
-    } else if (result.includes('lose')) {
-        finalTally.lose++;
-    } else {
-        finalTally.tie++;
+    if (playerScore == 5) {
+        console.log("Player wins the game!");
+        resetGame();
+    }   else if (computerScore == 5) {
+        console.log("Computer wins the game!");
+        resetGame();
     }
 }
 
-console.log("Final Tally", finalTally);
+function resetGame() {
+    playerScore = 0;
+    computerScore = 0;
 }
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+        button.addEventListener('click', handleButtonClick);
+});
