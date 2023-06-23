@@ -6,7 +6,29 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 100vh;
-    width: 1500px;
+    height: 80vh; /* Adjust the height as needed */
+    width: 80%; /* Adjust the width as needed */
     margin: 0 auto;
+}
+
+#message {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 20vh; 
+    width: 80%; 
+    margin: 0 auto;
+    font-size: xx-large;
+    font-style: italic;
+}
+
+@media (max-width: 600px) {
+    #container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    #message {
+        height: auto;
+    }
 }
