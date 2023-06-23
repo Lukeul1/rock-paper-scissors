@@ -1,12 +1,15 @@
-let playerScore = 0;
-let computerScore = 0;
+document.addEventListener('DOMContentLoaded', function() {
+    let playerScore = 0;
+    let computerScore = 0;
 
-function playRound(playerSelection) {
-    function getComputerChoice() {
-        const options = ['Rock', 'Paper', 'Scissors'];
-        const computerSelectionIndex = Math.floor(Math.random()*options.length);
-        return options[computerSelectionIndex];
-    }
+    const messageContainer = document.getElementById('message');
+
+    function playRound(playerSelection) {
+        function getComputerChoice() {
+            const options = ['Rock', 'Paper', 'Scissors'];
+            const computerSelectionIndex = Math.floor(Math.random() * options.length);
+            return options[computerSelectionIndex];
+        }
 
         const computerSelection = getComputerChoice();
 
@@ -16,36 +19,41 @@ function playRound(playerSelection) {
             (playerSelection === 'Rock' && computerSelection === 'Scissors')
         ) {
             playerScore++;
-            return `You win! ${playerSelection} beats ${computerSelection}`;
+            const message = `You win! ${playerSelection} beats ${computerSelection}`;
+            messageContainer.textContent = message;
         } else if (playerSelection === computerSelection) {
-            return `A tie ${playerSelection} and ${computerSelection} are the same`;
+            const message = `A tie ${playerSelection} and ${computerSelection} are the same`;
+            messageContainer.textContent = message;
         } else {
             computerScore++;
-            return `You lose! ${computerSelection} beats ${playerSelection}`;
+            const message = `You lose! ${computerSelection} beats ${playerSelection}`;
+            messageContainer.textContent = message;
         }
-    } 
 
-function handleButtonClick(event) {
-        const playerSelection = event.target.id;
-        const result = playRound(playerSelection);
-        console.log(result);
-
-    if (playerScore == 5) {
-        console.log("Player wins the game!");
-        resetGame();
-    }   else if (computerScore == 5) {
-        console.log("Computer wins the game!");
-        resetGame();
+        if (playerScore === 5) {
+            const message = "Player wins the game!";
+            messageContainer.textContent = message;
+            resetGame();
+        } else if (computerScore === 5) {
+            const message = "Computer wins the game!";
+            messageContainer.textContent = message;
+            resetGame();
+        }
     }
-}
 
-function resetGame() {
-    playerScore = 0;
-    computerScore = 0;
-}
+    function handleButtonClick(event) {
+        const playerSelection = event.currentTarget.closest('button').id;
+        playRound(playerSelection);
+    }
 
-const buttons = document.querySelectorAll('button');
+    function resetGame() {
+        playerScore = 0;
+        computerScore = 0;
+    }
 
-buttons.forEach((button) => {
+    const buttons = document.querySelectorAll('button');
+
+    buttons.forEach((button) => {
         button.addEventListener('click', handleButtonClick);
+    });
 });
